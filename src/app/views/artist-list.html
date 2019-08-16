@@ -11,21 +11,21 @@
 <div class="clearfix"></div>
 
 <ul class="artist-list" *ngIf="identity">
-    <li *ngFor="let artist of artists" class="col-lg-3" artist-item>
+    <li *ngFor="let artist of artists" class="col-lg-3 artist-item">
         <div class="artist-image">
-            <img src="{{url + 'get-image-artist/' + artist.image}}" />
+            <img src="{{ url + 'get-image-artist/' + artist.image }}" />
         </div>
         <div class="artist-name">
-            <a [routerLink]="['/artista', artist.id]">{{artist.name}}</a>
+            <a [routerLink]="['/artista', artist._id]">{{ artist.name }}</a>
 
             <div class="buttons" *ngIf="identity.role == 'ROLE_ADMIN'">
-                <a [routerLink]="['/editar-artista', artist.id]" class="btn btn-sm btn-warning">Editar</a>
-                <a (click)="onDeleteConfirm(artist.id)" class="btn btn-sm btn-danger">Borrar</a>
+                <a [routerLink]="['/editar-artista', artist._id]" class="btn btn-sm btn-warning" style="margin-right: 2.5px;">Editar</a>
+                <a (click)="onDeleteConfirm(artist._id)" class="btn btn-sm btn-danger" style="margin-left: 2.5px;">Borrar</a>
             </div>
 
-            <div class="seguro" *ngIf="confirmado == artist.id">
-                <a (click)="onDeleteArtist(artist.id)" class="btn btn-sm btn-danger">Eliminar</a>
-                <a (click)="onCancelArtist()" class="btn btn-sm btn-danger">Cancelar</a>
+            <div class="seguro" *ngIf="confirmado == artist._id">
+                <a (click)="onDeleteArtist(artist._id)" class="btn btn-sm btn-danger" style="margin-right: 2.5px;">Eliminar</a>
+                <a (click)="onCancelArtist()" class="btn btn-sm btn-primary" style="margin-left: 2.5px;">Cancelar</a>
             </div>
         </div>
     </li>

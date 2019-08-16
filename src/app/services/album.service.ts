@@ -1,80 +1,92 @@
 //importamos los servicios
-import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 //libreria para mapear objetos
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 //para recojer una respuesta de algúna petición
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
-import {GLOBAL} from './global';
+import { GLOBAL } from './global';
 import { Album } from "../models/album";
 
-//creamos el servicio del usuario
 @Injectable()
-export class AlbumService{
+export class AlbumService {
+
     public url: string;
 
     //asignamos un valor a la url creando un constructor
-    constructor(private _http: Http){
+    constructor(private _http: HttpClient){
         //asignamos un valor a la url
         this.url = GLOBAL.url;
     }
 
-    getAlbum(token, id:string){
-        let headers = new Headers({
+    getAlbums(token, artistId = null) {
+        let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': token
         });
 
-        let options = new RequestOptions({headers: headers});
-        return this._http.get(this.url + 'album/' + id, options).map(res => res.json());
-    }
+        let options = {
+            headers: headers
+        };
 
-    editAlbum(token, id:string, album: Album){
-        let params = JSON.stringify(album);
-        let headers = new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': token
-        });
-
-        return this._http.put(this.url + 'album/' +id, params, {headers: headers})
-                .map(res => res.json());
-    }
-
-    //método de add artist
-    addAlbum(token, album: Album){
-        let params = JSON.stringify(album);
-        let headers = new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': token
-        });
-
-        return this._http.post(this.url + 'album', params, {headers: headers})
-                .map(res => res.json());
-    }
-
-    getAlbums(token, artistId = null){
-        let headers = new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': token
-        });
-
-        let options = new RequestOptions({headers: headers});
-
-        if(artistId == null){
-            return this._http.get(this.url + 'albums', options).map(res => res.json());
-        }else{
-            return this._http.get(this.url + 'albums/' + artistId, options).map(res => res.json());
+        if (artistId == null) {
+            return this._http.get(this.url + 'albums', options)
+                .pipe(map( (res: any) =>  res ));
+        } else {
+            return this._http.get(this.url + 'albums/' + artistId, options)
+                .pipe(map( (res: any) =>  res ));
         }
     }
 
-    deleteAlbum(token, id:string){
-        let headers = new Headers({
+    getAlbum(token, id: string) {
+        let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': token
         });
 
-        let options = new RequestOptions({headers: headers});
-        return this._http.delete(this.url + 'album/' + id, options).map(res => res.json());
+        let options = {
+            headers: headers
+        };
+
+        return this._http.get(this.url + 'album/' + id, options)
+            .pipe(map( (res: any) =>  res ));
     }
+
+    addAlbum(token, album: Album) {
+        let params = JSON.stringify(album);
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        return this._http.post(this.url + 'album', params, { headers: headers })
+            .pipe(map( (res: any) =>  res ));
+    }
+
+    editAlbum(token, id: string, album: Album) {
+        let params = JSON.stringify(album);
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        return this._http.put(this.url + 'album/' + id, params, { headers: headers })
+            .pipe(map( (res: any) =>  res ));
+    }
+
+    deleteAlbum(token, id: string) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        let options = {
+            headers: headers
+        };
+
+        return this._http.delete(this.url + 'album/' + id, options)
+            .pipe(map( (res: any) =>  res ));
+    }
+
 }

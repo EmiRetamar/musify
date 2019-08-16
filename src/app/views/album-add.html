@@ -1,26 +1,30 @@
 <div class="col-lg-6">
-    <h1>{{titulo}}</h1>
+
+    <h1>{{ titulo }}</h1>
     <div *ngIf="alertMessage">
         <div class="alert alert-info">
-            {{alertMessage}}
+            {{ alertMessage }}
         </div>
     </div>
 
-    <form #formAlbum="ngForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="albumForm" (ngSubmit)="onSubmit()">
+
         <p>
             <label>Titulo</label>
-            <input type="text" #title="ngModel" name="title" [(ngModel)]="album.title" required class="form-control" />
-            <span *ngIf="!title.valid && title.touched">El titulo es obligatorio</span>
+            <input type="text" formControlName="title" [(ngModel)]="album.title" required class="form-control" />
+            <span *ngIf="submitted && form.title.errors">El titulo es obligatorio</span>
         </p>
+
         <p>
             <label>Descripción</label>
-            <textarea #description="ngModel" name="description" [(ngModel)]="album.description" required class="form-control"></textarea>
-            <span *ngIf="!description.valid && description.touched">La descripción es obligatorio</span>
+            <textarea formControlName="description" [(ngModel)]="album.description" required class="form-control"></textarea>
+            <span *ngIf="submitted && form.description.errors">La descripción es obligatoria</span>
         </p>
+
         <p>
             <label>Año</label>
-            <input type="text" #year="ngModel" name="year" [(ngModel)]="album.year" required class="form-control" />
-            <span *ngIf="!year.valid && year.touched">El titulo es obligatorio</span>
+            <input type="text" formControlName="year" [(ngModel)]="album.year" required class="form-control" />
+            <span *ngIf="submitted && form.year.errors">El año es obligatorio</span>
         </p>
 
         <div *ngIf="is_edit">
@@ -34,6 +38,8 @@
             </p>
         </div>
 
-        <input type="submit" value="{{titulo}}" [disabled]="!formAlbum.form.valid" class="btn btn-success" />
+        <input type="submit" value="{{ titulo }}" class="btn btn-success" />
+
     </form>
+
 </div>

@@ -1,10 +1,10 @@
-//exportar una clase
-export class Song{
+export class Song {
     constructor(
+        public _id: string,
         public number: number,
         public name: string,
         public duration: string,
         public file: string,
         public album: string
-    ){}
+    ) {}
 }
