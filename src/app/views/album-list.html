@@ -1,0 +1,63 @@
+<div *ngIf="identity" class="all-album-box">
+
+    <h1>{{ titulo }}</h1>
+
+    <div class="form-group row" style="margin-top: 2em;">
+        <div *ngFor="let gender of genders" class="col-lg-2">
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" value="{{ gender._id }}"
+                    [checked]="checked[gender._id]" (change)="filterByGender($event)"> {{ gender.name }}
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Se listan todos los albumes agrupados por artista -->
+    <div class="gallery-all-album" *ngFor="let artist of filteredAlbums">
+
+        <div id="artist-head-card">
+            <div class="image">
+                <img src="{{ url + 'get-image-artist/' + artist.image }}" *ngIf="artist.image && artist.image != 'null'">
+            </div>
+            <div class="data">
+                <h1>{{ artist.nameArtist }}</h1>
+                <p class="gender">Género: {{ artist.gender }}</p>
+                <p class="description">Descripción: {{ artist.description }}</p>
+
+                <a *ngIf="identity.role == 'ROLE_ADMIN'" [routerLink]="['/crear-album', artist._id]" class="btn btn-default">Añadir Album</a>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="gallery-albums-by-artist">
+            <!-- Se listan los albumes del artista actual -->
+            <ul class="album-list-by-artist">
+                <li *ngFor="let album of artist.albums" class="col-lg-4 album-item">
+                    <div class="album-image">
+                        <img src="{{ url + 'get-image-album/' + album.image }}" />
+                    </div>
+                    <div class="album-name">
+                        <p><a [routerLink]="['/album', album._id]">{{ album.title }}</a></p>
+                        <p><a [routerLink]="['/artista', album.artist._id]">{{ album.artist.name }}</a></p>
+
+                        <div class="buttons" *ngIf="identity.role == 'ROLE_ADMIN'">
+                            <a [routerLink]="['/editar-album', album._id]" class="btn btn-sm btn-warning" style="margin-right: 2.5px;">Editar</a>
+                            <a (click)="onDeleteConfirm(album._id)" class="btn btn-sm btn-danger" style="margin-left: 2.5px;">Borrar</a>
+                        </div>
+
+                        <div class="seguro seguro-album" *ngIf="confirmado == album._id">
+                            <a (click)="onDeleteAlbum(album._id)" class="btn btn-sm btn-danger" style="margin-right: 2.5px;">Eliminar</a>
+                            <a (click)="onCancelAlbum()" class="btn btn-sm btn-primary" style="margin-left: 2.5px;">Cancelar</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+</div>

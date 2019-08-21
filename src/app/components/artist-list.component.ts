@@ -11,13 +11,14 @@ import { ArtistService } from '../services/artist.service';
     providers: [ UserService, ArtistService ]
 })
 
-export class ArtistListComponent implements OnInit{
+export class ArtistListComponent implements OnInit {
 
     public titulo: string;
     public artists: Artist[];
     public token;
     public identity;
     public url: string;
+    public alertMessage;
     public prev_page;
     public next_page;
 
@@ -48,7 +49,7 @@ export class ArtistListComponent implements OnInit{
             //cogemos el parámetro de la página y con el + lo convertimos en número
             let page = +params['page'];
 
-            if(!page) {
+            if (!page) {
                 page = 1
             } else {
                 this.next_page = page + 1;
@@ -61,14 +62,14 @@ export class ArtistListComponent implements OnInit{
 
             this._artistService.getArtists(this.token, page).subscribe(
                 response => {
-                    if(!response.artists) {
+                    if (!response.artists) {
                         this._router.navigate(['/']);
                     } else {
                         this.artists = response.artists;
                     }
                 },
                 err => {
-                    var errorMessage = err.error.message;
+                    this.alertMessage = err.error.message;
                 }
             );
         });
@@ -100,4 +101,5 @@ export class ArtistListComponent implements OnInit{
             }
         );
     }
+
 }

@@ -34,6 +34,12 @@ html, body {
 	background: #eee;
 }
 
+.seguro-gender {
+	right: 10px;
+	margin-top: -20px;
+	background: #eee;
+}
+
 /* BARRA LATERAL */
 
 .head-title {
@@ -124,6 +130,7 @@ html, body {
 
 .artist_image_for_edit img,
 .album_image_for_edit img {
+	height: 100px;
 	width: 150px;
 }
 
@@ -171,7 +178,31 @@ html, body {
 	color: white;
 }
 
+.artist-item {
+	margin-bottom: 20px;
+}
+
+.search-artist-box {
+	margin-top: 5em;
+}
+
 /* ALBUMES */
+
+.all-album-box {
+	margin-bottom: 12em;
+}
+
+.gallery-all-album {
+	margin-top: 5em;
+}
+
+.album-list-by-artist {
+	margin: 0px;
+	padding: 0px;
+	margin-top: 30px;
+	list-style: none;
+	height: auto;
+}
 
 #gallery-album {
 	margin-bottom: 12em;
@@ -179,7 +210,7 @@ html, body {
 
 .album-list {
 	height: auto;
-	margin-bottom: 715px;
+	/*margin-bottom: 715px;*/
 }
 
 .album-item .album-image {
@@ -261,4 +292,43 @@ html, body {
 
 #player {
 	margin-top: 5px;
+}
+
+/* BUSCADOR */
+
+.button-asc {
+	width: 15em;
+	float: left;
+}
+
+.button-desc {
+	width: 15em;
+	float: right;
+}
+
+/* GENEROS */
+
+#gallery-gender {
+	margin-top: 3em;
+}
+
+#gender-list {
+	margin: 0px;
+	padding: 0px;
+	min-height: 800px;
+	padding-bottom: 200px;
+}
+
+.gender-item {
+	list-style: none;
+	border-bottom: 1px solid #ccc;
+	padding-top: 7px;
+}
+
+.gender-item .title {
+	padding: 12px;
+}
+
+.gender-item .buttons {
+	float: right;
 }

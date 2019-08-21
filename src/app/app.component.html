@@ -1,15 +1,18 @@
 <!-- comprobar si identity existe y tiene algo dentro -->
 <div *ngIf="identity" class="navigation col-lg-1">
+
     <h1 class="head-title">
         <a [routerLink]="['/']">
             <span class="glyphicon glyphicon-music"></span>
             {{ title }}
         </a>
     </h1>
+
     <nav id="navigation">
-        <a href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Buscar</a>
+        <a [routerLink]="['/search']" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Buscar</a>
         <a [routerLink]="['/artistas', 1]" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>Artistas</a>
-        <a href="#" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>Albums</a>
+        <a [routerLink]="['/albumes']" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>Albums</a>
+        <a [routerLink]="['/generos']" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>Generos</a>
     </nav>
 
     <nav id="user_logged">
@@ -27,6 +30,7 @@
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir
         </a>
     </nav>
+
 </div>
 
 <!--<div class="clearfix"></div>-->
@@ -42,6 +46,7 @@
 </div>
 
 <div class="col-lg-12" *ngIf="!identity">
+
     <div class="col-lg-6">
         <h1>Identificate</h1>
         <div *ngIf="errorLogin">
@@ -83,7 +88,7 @@
             <p>
                 <label>Apellido:</label>
                 <input type="text" formControlName="surname" [(ngModel)]="user_register.surname" class="form-control" required />
-                <span *ngIf="submittedRegister && formRegister.surname.errors">El appellido es obligatorio!</span>
+                <span *ngIf="submittedRegister && formRegister.surname.errors">El apellido es obligatorio!</span>
             </p>
             <p>
                 <label>Correo:</label>
@@ -95,9 +100,10 @@
             <p>
                 <label>Contraseña:</label>
                 <input type="password" formControlName="passwordRegister" [(ngModel)]="user_register.password" class="form-control" required />
-                <span *ngIf="submittedRegister && formRegister.passwordRegister.errors">La contraseña es obligatorio!</span>
+                <span *ngIf="submittedRegister && formRegister.passwordRegister.errors">La contraseña es obligatoria!</span>
             </p>
             <input type="submit" value="Registrate" class="btn btn-primary" />
         </form>
     </div>
+
 </div>

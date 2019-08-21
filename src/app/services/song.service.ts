@@ -54,6 +54,20 @@ export class SongService {
             .pipe(map( (res: any) =>  res ));
     }
 
+    searchSongs(token, text: string) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        let options = {
+            headers: headers
+        };
+
+        return this._http.get(this.url + 'search-songs/' + text, options)
+            .pipe(map( (res: any) =>  res ));
+    }
+
     addSong(token, song: Song) {
         let params = JSON.stringify(song);
         let headers = new HttpHeaders({

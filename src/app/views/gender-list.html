@@ -1,0 +1,33 @@
+<div *ngIf="identity" class="gender-box">
+
+    <h1>{{ titulo }}</h1>
+    <a [routerLink]="['/crear-genero']" *ngIf="identity.role == 'ROLE_ADMIN'" class="btn btn-default">Añadir género musical</a>
+
+    <div class="clearfix"></div>
+
+    <div id="gallery-gender" *ngIf="genders">
+        <ul id="gender-list">
+            <li *ngFor="let gender of genders" class="gender-item">
+
+                <div class="title">
+
+                    {{ gender.name }}
+
+                    <div class="buttons" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
+                        <a [routerLink]="['/editar-genero', gender._id]" class="btn btn-warning" style="margin-right: 2.5px;">Editar</a>
+                        <a (click)="onDeleteConfirm(gender._id)" class="btn btn-danger" style="margin-left: 2.5px;">Borrar</a>
+                    </div>
+
+                    <div class="seguro seguro-gender" *ngIf="confirmado == gender._id">
+                        <a (click)="onDeleteGender(gender._id)" class="btn btn-danger" style="margin-right: 2.5px;">Eliminar</a>
+                        <a (click)="onCancelGender()" class="btn btn-primary" style="margin-left: 2.5px;">Cancelar</a>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+
+        <div class="clearfix"></div>
+    </div>
+
+</div>

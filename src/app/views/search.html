@@ -1,0 +1,112 @@
+<div *ngIf="identity" class="col-lg-12" style="margin-top: 1em;">
+    <div class="col-lg-3">
+        <a (click)="getItemsSortedAsc()" class="btn btn-sm btn-primary button-asc">Ordenar ascendente</a>
+    </div>
+    <div class="col-lg-6">
+        <input #text type="text" (keyup)="search(text.value)" class="form-control" placeholder="Buscar...">
+    </div>
+    <div class="col-lg-3">
+        <a (click)="getItemsSortedDesc()" class="btn btn-sm btn-primary button-desc">Ordenar descendente</a>
+    </div>
+</div>
+
+
+<div *ngIf="identity && artists" class="search-artist-box">
+
+    <h1 style="text-align: center;">Artistas</h1>
+
+    <div id="gallery-album">
+        <ul class="artist-list">
+            <li *ngFor="let artist of artists" class="col-lg-3 artist-item">
+                <div class="artist-image">
+                    <img src="{{ url + 'get-image-artist/' + artist.image }}" />
+                </div>
+                <div class="artist-name">
+                    <a [routerLink]="['/artista', artist._id]">{{ artist.name }}</a>
+
+                    <div class="buttons" *ngIf="identity.role == 'ROLE_ADMIN'">
+                        <a [routerLink]="['/editar-artista', artist._id]" class="btn btn-sm btn-warning" style="margin-right: 2.5px;">Editar</a>
+                        <a (click)="onDeleteConfirm(artist._id)" class="btn btn-sm btn-danger" style="margin-left: 2.5px;">Borrar</a>
+                    </div>
+
+                    <div class="seguro" *ngIf="confirmado == artist._id">
+                        <a (click)="onDeleteArtist(artist._id)" class="btn btn-sm btn-danger" style="margin-right: 2.5px;">Eliminar</a>
+                        <a (click)="onCancelArtist()" class="btn btn-sm btn-primary" style="margin-left: 2.5px;">Cancelar</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+
+<div *ngIf="identity && albums" class="search-album-box">
+
+    <h1 style="text-align: center;">Albumes</h1>
+
+    <div id="gallery-album">
+        <ul class="album-list">
+            <li *ngFor="let album of albums" class="col-lg-4 album-item">
+                <div class="album-image">
+                    <img src="{{ url + 'get-image-album/' + album.image }}" />
+                </div>
+                <div class="album-name">
+                    <p><a [routerLink]="['/album', album._id]">{{ album.title }}</a></p>
+                    <p><a [routerLink]="['/artista', album.artist._id]">{{ album.artist.name }}</a></p>
+
+                    <div class="buttons" *ngIf="identity.role == 'ROLE_ADMIN'">
+                        <a [routerLink]="['/editar-album', album._id]" class="btn btn-sm btn-warning" style="margin-right: 2.5px;">Editar</a>
+                        <a (click)="onDeleteConfirm(album._id)" class="btn btn-sm btn-danger" style="margin-left: 2.5px;">Borrar</a>
+                    </div>
+
+                    <div class="seguro seguro-album" *ngIf="confirmado == album._id">
+                        <a (click)="onDeleteAlbum(album._id)" class="btn btn-sm btn-danger" style="margin-right: 2.5px;">Eliminar</a>
+                        <a (click)="onCancelAlbum()" class="btn btn-sm btn-primary" style="margin-left: 2.5px;">Cancelar</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+
+<div *ngIf="identity && songs" class="search-song-box">
+
+    <h1 style="text-align: center;">Temas</h1>
+
+    <div id="gallerty-song">
+        <ul id="song-list">
+            <li *ngFor="let song of songs" class="song-item">
+
+                <div class="title">
+
+                    <a class="btn btn-success" (click)="startPlayer(song)">
+                        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                    </a>
+
+                    {{ song.number + '. ' + song.name + ' - ' + song.duration }}
+
+                    <div class="buttons" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
+                        <a [routerLink]="['/editar-tema', song._id]" class="btn btn-warning" style="margin-right: 2.5px;">Editar</a>
+                        <a (click)="onDeleteConfirm(song._id)" class="btn btn-danger" style="margin-left: 2.5px;">Borrar</a>
+                    </div>
+
+                    <div class="seguro seguro-song" *ngIf="confirmado == song._id">
+                        <a (click)="onDeleteSong(song._id)" class="btn btn-danger" style="margin-right: 2.5px;">Eliminar</a>
+                        <a (click)="onCancelSong()" class="btn btn-primary" style="margin-left: 2.5px;">Cancelar</a>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+
+        <div class="clearfix"></div>
+    </div>
+
+</div>

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { GLOBAL } from '../services/global';
 import { AlbumService } from '../services/album.service';
+import { PlayerService } from '../services/player.service';
 import { Album } from '../models/album';
 import { Song } from '../models/song';
 import { SongService } from '../services/song.service';
@@ -10,7 +11,7 @@ import { SongService } from '../services/song.service';
 @Component({
     selector: 'album-detail',
     templateUrl: '../views/album-detail.html',
-    providers: [UserService, AlbumService, SongService]
+    providers: [ UserService, AlbumService, SongService, PlayerService ]
 })
 
 export class AlbumDetailComponent implements OnInit {
@@ -27,7 +28,8 @@ export class AlbumDetailComponent implements OnInit {
         private _router: Router,
         private _userService: UserService,
         private _albumService: AlbumService,
-        private _songService: SongService
+        private _songService: SongService,
+        private _playerService: PlayerService
     ) {
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
@@ -100,26 +102,7 @@ export class AlbumDetailComponent implements OnInit {
     }
 
     startPlayer(song) {
-        //convertir el objeto song en string de json para tener en sesión la canción
-        let song_player = JSON.stringify(song);
-        //para guardar la canción
-        let file_path = this.url + 'get-file-song/' + song.file;
-        //para guardar la imágen del album
-        let image_path = this.url + 'get-image-album/' + song.album.image;
-
-        //para guardar el localStorage la canción que esta sonando
-        localStorage.setItem('sound_song', song_player);
-
-        //cambiar los valores del reproductor
-        document.getElementById("mp3-source").setAttribute("src", file_path);
-        //usamos etiquetas de html5
-        (document.getElementById("player") as any).load();
-        (document.getElementById("player") as any).play();
-
-        //para mostrar el nombre del artista y de la canción
-        document.getElementById('play-song-title').innerHTML = song.name;
-        document.getElementById('play-song-artist').innerHTML = song.album.artist.name;
-        document.getElementById('play-image-album').setAttribute('src', image_path);
-    }
+		this._playerService.play(song);
+	}
 
 }

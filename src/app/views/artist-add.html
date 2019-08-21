@@ -8,6 +8,7 @@
     </div>
 
     <form [formGroup]="artistForm" (ngSubmit)="onSubmit()">
+
         <p>
             <label>Nombre</label>
             <input type="text" formControlName="name" [(ngModel)]="artist.name" required class="form-control" />
@@ -17,6 +18,16 @@
             <label>Descripción</label>
             <textarea formControlName="description" [(ngModel)]="artist.description" required class="form-control"></textarea>
             <span *ngIf="submitted && form.description.errors">La descripción es obligatoria</span>
+        </p>
+        <p>
+            <label>Género musical</label>
+            <select *ngIf="is_edit && artist.gender" formControlName="gender" [(ngModel)]="artist.gender._id" placeholder="Seleccione un género musical" class="form-control">
+                <option *ngFor="let gender of genders" [value]="gender._id">{{ gender.name }}</option>
+            </select>
+            <select *ngIf="!is_edit" formControlName="gender" [(ngModel)]="artist.gender" placeholder="Seleccione un género musical" class="form-control">
+                <option *ngFor="let gender of genders" [value]="gender._id">{{ gender.name }}</option>
+            </select>
+            <span *ngIf="submitted && form.gender.errors">El género musical es obligatorio</span>
         </p>
 
         <div *ngIf="is_edit">

@@ -4,19 +4,22 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { GLOBAL } from '../services/global';
 import { Artist } from '../models/artist';
+import { Gender } from '../models/gender';
 import { ArtistService } from '../services/artist.service';
+import { GenderService } from '../services/gender.service';
 import { UploadService } from '../services/upload.service';
 
 @Component({
     selector: 'artist-edit',
     templateUrl: '../views/artist-add.html',
-    providers: [ UserService, ArtistService, UploadService ]
+    providers: [ UserService, ArtistService, GenderService, UploadService ]
 })
 
 export class ArtistEditComponent implements OnInit {
 
     public titulo: string;
     public artist: Artist;
+    public genders: Gender[];
     public token;
     public identity;
     public url: string;
@@ -30,6 +33,7 @@ export class ArtistEditComponent implements OnInit {
         private _router: Router,
         private _userService: UserService,
         private _artistService: ArtistService,
+        private _genderService: GenderService,
         private _uploadService: UploadService,
         private formBuilder: FormBuilder
     ) {
@@ -37,19 +41,20 @@ export class ArtistEditComponent implements OnInit {
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
         this.url = GLOBAL.url;
-        this.artist = new Artist('', '', '', '');
+        this.artist = new Artist('', '', '', '', '');
         this.is_edit = true;
     }
 
     ngOnInit() {
         console.log('artist-edit.component.ts cargando');
 
-        //llamar al método del api para sacar un artista en base a su id
         this.getArtist();
+        this.getGenders();
 
         this.artistForm = this.formBuilder.group({
             name: ['', [Validators.required]],
-            description: ['', [Validators.required]]
+            description: ['', [Validators.required]],
+            gender: ['', [Validators.required]]
         });
     }
 
@@ -74,6 +79,21 @@ export class ArtistEditComponent implements OnInit {
                 }
             );
         });
+    }
+
+    getGenders() {
+        this._genderService.getGenders(this.token).subscribe(
+            response => {
+                if (!response.genders) {
+                    this.alertMessage = 'Aun no hay generos musicales disponibles';
+                } else {
+                    this.genders = response.genders;
+                }
+            },
+            err => {
+                this.alertMessage = err.error.message;
+            }
+        );
     }
 
     onSubmit() {

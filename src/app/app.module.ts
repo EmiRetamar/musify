@@ -18,6 +18,11 @@ import { AlbumDetailComponent } from './components/album-detail.component';
 import { SongAddComponent } from './components/song-add.component';
 import { SongEditComponent } from './components/song-edit.component';
 import { PlayerComponent } from './components/player.component';
+import { AlbumListComponent } from './components/album-list.component';
+import { SearchComponent } from './components/search.component';
+import { GenderListComponent } from './components/gender-list.component';
+import { GenderFormComponent } from './components/gender-form.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +38,11 @@ import { PlayerComponent } from './components/player.component';
     AlbumDetailComponent,
     SongAddComponent,
     SongEditComponent,
-    PlayerComponent
+    PlayerComponent,
+    AlbumListComponent,
+    SearchComponent,
+    GenderListComponent,
+    GenderFormComponent
   ],
   imports: [
     BrowserModule,

@@ -6,19 +6,19 @@ import { Router, ActivatedRoute } from '@angular/router';
     templateUrl: '../views/home.html'
 })
 
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
+
     public titulo: string;
 
     constructor(
         private _route: ActivatedRoute,
         private _router: Router
-    ){
+    ) {
         this.titulo = 'Artistas';
     }
 
-    ngOnInit(){
+    ngOnInit() {
         console.log('home.component.ts cargando');
-
-        //conseguir el listado de artistas
     }
+
 }

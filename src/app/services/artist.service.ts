@@ -48,6 +48,20 @@ export class ArtistService {
             .pipe(map( (res: any) =>  res ));
     }
 
+    searchArtists(token, text: string) {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        let options = {
+            headers: headers
+        };
+
+        return this._http.get(this.url + 'search-artists/' + text, options)
+            .pipe(map( (res: any) =>  res ));
+    }
+
     //método de add artist
     addArtist(token, artist: Artist) {
         let params = JSON.stringify(artist);
