@@ -20,6 +20,7 @@ export class SongAddComponent implements OnInit {
     public identity;
     public url: string;
     public alertMessage;
+    public is_edit;
     public songForm: FormGroup;
     public submitted = false;
 
@@ -35,6 +36,7 @@ export class SongAddComponent implements OnInit {
         this.token = this._userService.getToken();
         this.url = GLOBAL.url;
         this.song = new Song('', 1, '', '', '', '');
+        this.is_edit = false;
     }
 
     ngOnInit() {
@@ -75,5 +77,7 @@ export class SongAddComponent implements OnInit {
             });
         }
     }
+
+    fileChangeEvent(fileInput) { }
 
 }

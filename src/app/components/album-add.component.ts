@@ -22,6 +22,7 @@ export class AlbumAddComponent implements OnInit {
     public identity;
     public url: string;
     public alertMessage;
+    public is_edit;
     public albumForm: FormGroup;
     public submitted = false;
 
@@ -37,6 +38,7 @@ export class AlbumAddComponent implements OnInit {
         this.token = this._userService.getToken();
         this.url = GLOBAL.url;
         this.album = new Album('', '', '', 2017, '', '');
+        this.is_edit = true;
     }
 
     ngOnInit() {
@@ -77,5 +79,7 @@ export class AlbumAddComponent implements OnInit {
             });
         }
     }
+
+    fileChangeEvent(fileInput) { }
 
 }

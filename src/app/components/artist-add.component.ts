@@ -23,6 +23,7 @@ export class ArtistAddComponent implements OnInit {
     public identity;
     public url: string;
     public alertMessage;
+    public is_edit;
     public artistForm: FormGroup;
     public submitted = false;
 
@@ -39,6 +40,7 @@ export class ArtistAddComponent implements OnInit {
         this.token = this._userService.getToken();
         this.url = GLOBAL.url;
         this.artist = new Artist('', '', '', '', '');
+        this.is_edit = false;
     }
 
     ngOnInit() {
@@ -91,5 +93,7 @@ export class ArtistAddComponent implements OnInit {
             )
         }
     }
+
+    fileChangeEvent(fileInput) { }
 
 }
