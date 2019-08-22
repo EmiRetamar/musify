@@ -120,10 +120,8 @@ export class AlbumListComponent implements OnInit {
 		else {
             this.checked[idGender] = false;
             this.cantCheckeds--;
-            if (this.cantCheckeds == 0) {
-                this.filteredAlbums = this.albumsByArtist;
+            if (this.cantCheckeds == 0)
                 this.ngOnInit();
-            }
         }
         this.filter();
     }
