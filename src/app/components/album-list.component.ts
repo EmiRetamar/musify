@@ -21,6 +21,7 @@ export class AlbumListComponent implements OnInit {
     public token;
     public identity;
     public url: string;
+    public cantCheckeds: number = 0;
     public checked: boolean[] = new Array();
     public albumsByArtist = new Array();
     public filteredAlbums = new Array();
@@ -114,12 +115,28 @@ export class AlbumListComponent implements OnInit {
         let idGender = event.srcElement.value;
 		if (event.target.checked) {
             this.checked[idGender] = true;
+            this.cantCheckeds++;
 		}
 		else {
             this.checked[idGender] = false;
+            this.cantCheckeds--;
+            if (this.cantCheckeds == 0) {
+                this.filteredAlbums = this.albumsByArtist;
+                this.ngOnInit();
+            }
         }
         this.filter();
     }
+
+    /* No se puede recorrer el array "this.checked" con for of ni con forEach porque tiene indices que contienen
+    caracteres no numericos. Ejemplo: '5d5c4fb9687ea68facec3e3e'. Estos indices son los ids de los generos */
+
+    /*reloadItems() {
+        for (let checked of this.checked) {
+            console.log(checked);
+        }
+        return false;
+    }*/
 
     filter() {
         this.filteredAlbums = this.albumsByArtist.filter(artist => this.checked[artist.idGender]);
