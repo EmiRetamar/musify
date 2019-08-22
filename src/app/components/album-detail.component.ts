@@ -96,7 +96,8 @@ export class AlbumDetailComponent implements OnInit {
                 }
             },
             err => {
-                this.alertMessage = err.error.message;
+                alert('No se pudo eliminar la cancion');
+                console.log(err.error.message);
             }
         );
     }

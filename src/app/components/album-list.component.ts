@@ -132,8 +132,10 @@ export class AlbumListComponent implements OnInit {
     /*reloadItems() {
         for (let checked of this.checked) {
             console.log(checked);
+            if (checked)
+                return false;
         }
-        return false;
+        return true;
     }*/
 
     filter() {

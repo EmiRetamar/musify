@@ -24,10 +24,10 @@ export class SearchComponent implements OnInit {
 	public token;
     public identity;
 	public url: string;
+	public text: string;
 	public alertMessageArtists;
 	public alertMessageAlbums;
 	public alertMessageSongs;
-	public loading: boolean;
 
   	constructor(
 		private _userService: UserService,
@@ -46,6 +46,7 @@ export class SearchComponent implements OnInit {
     }
 
 	search(text: string) {
+		this.text = text;
 		this._artistService.searchArtists(this.token, text).subscribe(
 			response => {
 
@@ -191,5 +192,83 @@ export class SearchComponent implements OnInit {
 	startPlayer(song) {
 		this._playerService.play(song);
 	}
+
+	public confirmadoArtist;
+
+    onDeleteConfirmArtist(id) {
+        this.confirmadoArtist = id;
+    }
+
+    onCancelArtist() {
+        this.confirmadoArtist = null;
+    }
+
+    onDeleteArtist(id) {
+        this._artistService.deleteArtist(this.token, id).subscribe(
+            response => {
+                if (!response.artist) {
+                    alert('Error en el servidor');
+                }
+
+                this.search(this.text);
+            },
+            err => {
+                alert('No se pudo eliminar el artista');
+                console.log(err.error.message);
+            }
+        );
+	}
+
+	public confirmadoAlbum;
+
+    onDeleteConfirmAlbum(id) {
+        this.confirmadoAlbum = id;
+    }
+
+    onCancelAlbum() {
+        this.confirmadoAlbum = null;
+    }
+
+    onDeleteAlbum(id) {
+        this._albumService.deleteAlbum(this.token, id).subscribe(
+            response => {
+                if (!response.album) {
+                    alert('Error en el servidor');
+                }
+
+                this.search(this.text);
+            },
+            err => {
+                alert('No se pudo eliminar el album');
+                console.log(err.error.message);
+            }
+        );
+	}
+
+	public confirmadoSong;
+
+    onDeleteConfirmSong(id) {
+        this.confirmadoSong = id;
+    }
+
+    onCancelSong() {
+        this.confirmadoSong = null;
+    }
+
+    onDeleteSong(id) {
+        this._songService.deleteSong(this.token, id).subscribe(
+            response => {
+                if (!response.song) {
+                    alert('Error en el servidor');
+                } else {
+                    this.search(this.text);
+                }
+            },
+            err => {
+                alert('No se pudo eliminar la cancion');
+                console.log(err.error.message);
+            }
+        );
+    }
 
 }

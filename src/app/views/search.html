@@ -26,10 +26,10 @@
 
                     <div class="buttons" *ngIf="identity.role == 'ROLE_ADMIN'">
                         <a [routerLink]="['/editar-artista', artist._id]" class="btn btn-sm btn-warning" style="margin-right: 2.5px;">Editar</a>
-                        <a (click)="onDeleteConfirm(artist._id)" class="btn btn-sm btn-danger" style="margin-left: 2.5px;">Borrar</a>
+                        <a (click)="onDeleteConfirmArtist(artist._id)" class="btn btn-sm btn-danger" style="margin-left: 2.5px;">Borrar</a>
                     </div>
 
-                    <div class="seguro" *ngIf="confirmado == artist._id">
+                    <div class="seguro" *ngIf="confirmadoArtist == artist._id">
                         <a (click)="onDeleteArtist(artist._id)" class="btn btn-sm btn-danger" style="margin-right: 2.5px;">Eliminar</a>
                         <a (click)="onCancelArtist()" class="btn btn-sm btn-primary" style="margin-left: 2.5px;">Cancelar</a>
                     </div>
@@ -59,10 +59,10 @@
 
                     <div class="buttons" *ngIf="identity.role == 'ROLE_ADMIN'">
                         <a [routerLink]="['/editar-album', album._id]" class="btn btn-sm btn-warning" style="margin-right: 2.5px;">Editar</a>
-                        <a (click)="onDeleteConfirm(album._id)" class="btn btn-sm btn-danger" style="margin-left: 2.5px;">Borrar</a>
+                        <a (click)="onDeleteConfirmAlbum(album._id)" class="btn btn-sm btn-danger" style="margin-left: 2.5px;">Borrar</a>
                     </div>
 
-                    <div class="seguro seguro-album" *ngIf="confirmado == album._id">
+                    <div class="seguro seguro-album" *ngIf="confirmadoAlbum == album._id">
                         <a (click)="onDeleteAlbum(album._id)" class="btn btn-sm btn-danger" style="margin-right: 2.5px;">Eliminar</a>
                         <a (click)="onCancelAlbum()" class="btn btn-sm btn-primary" style="margin-left: 2.5px;">Cancelar</a>
                     </div>
@@ -94,10 +94,10 @@
 
                     <div class="buttons" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
                         <a [routerLink]="['/editar-tema', song._id]" class="btn btn-warning" style="margin-right: 2.5px;">Editar</a>
-                        <a (click)="onDeleteConfirm(song._id)" class="btn btn-danger" style="margin-left: 2.5px;">Borrar</a>
+                        <a (click)="onDeleteConfirmSong(song._id)" class="btn btn-danger" style="margin-left: 2.5px;">Borrar</a>
                     </div>
 
-                    <div class="seguro seguro-song" *ngIf="confirmado == song._id">
+                    <div class="seguro seguro-song" *ngIf="confirmadoSong == song._id">
                         <a (click)="onDeleteSong(song._id)" class="btn btn-danger" style="margin-right: 2.5px;">Eliminar</a>
                         <a (click)="onCancelSong()" class="btn btn-primary" style="margin-left: 2.5px;">Cancelar</a>
                     </div>
